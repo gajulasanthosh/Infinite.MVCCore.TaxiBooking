@@ -1,0 +1,51 @@
+﻿@model IEnumerable<EmployeeViewModel>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+
+
+<div class="row">
+    <div class="col-md-9">
+        <div class="row">
+            <div class="col">
+                <h2>List of Employees</h2>
+            </div>
+            <div class="col">
+                <a asp-controller="Employees" asp-action="Create" class="btn btn-primary">Create new Employee</a>
+            </div>
+
+        </div>
+
+        <div class="col-md-5">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>Employee Id</th>
+                        <th>Employee Name</th>
+                        <th>Designation</th>
+                        <th>Action</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var x in Model)
+                    {
+                        <tr>
+                            <td>@x.EmployeeId</td>
+                            <td>@x.EmployeeName</td>
+                            <td>@x.Designation</td>
+                            <td>
+                                <a asp-controller="Employees" asp-action="Details" asp-route-id="@x.EmployeeId" class="btn btn-primary">Details</a>
+                                <a asp-controller="Employees" asp-action="Edit" asp-route-id="@x.EmployeeId" class="btn btn-primary">Edit</a>
+                                <a asp-controller="Employees" asp-action="Delete" asp-route-id="@x.EmployeeId" class="btn btn-primary">Delete</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+
+            </table>
+        </div>
+    </div>
+</div>

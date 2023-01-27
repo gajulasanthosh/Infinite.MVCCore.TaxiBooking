@@ -1,0 +1,33 @@
+﻿@model IEnumerable<BookingViewModel>
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>List of Bookings</h1>
+
+<div class="row">
+    <div class="col-md-5">
+        <table class="table table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th>Booking Id</th>
+                    <th>Customer Name</th>
+                    <th>Customer Id</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                @foreach (var x in Model)
+                {
+                    <tr>
+                        <td>@x.BookingId</td>
+                        <td>@x.CustomerName</td>
+                        <td>@x.CustomerID</td>
+
+
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

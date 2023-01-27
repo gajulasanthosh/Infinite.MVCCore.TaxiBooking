@@ -1,0 +1,52 @@
+﻿@model EmployeeViewModel
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create An Employee</h1>
+<form asp-controller="Employees" asp-action="Create" method="post">
+    <div class="class=row">
+        <div class="col-md-4">
+            <div class="class=mb-2">
+                <label asp-for="EmployeeName" class="form-label"></label>
+                <input type="text" asp-for="EmployeeName" class="form-control" />
+                <span asp-validation-for="EmployeeName"></span>
+            </div>
+
+            <div class="class=mb-2">
+                <label asp-for="Designation" class="form-label"></label>
+                <input type="text" asp-for="Designation " class="form-control" />
+                <span asp-validation-for="Designation"></span>
+            </div>
+
+            <div class="class=mb-2">
+                <label asp-for="PhoneNo" class="form-label"></label>
+                <input type="text" asp-for="PhoneNo" class="form-control" />
+                <span asp-validation-for="PhoneNo"></span>
+            </div>
+
+            <div class="class=mb-2">
+                <label asp-for="EmailId" class="form-label"></label>
+                <input type="text" asp-for="EmailId" class="form-control" />
+                <span asp-validation-for="EmailId"></span>
+            </div>
+
+            <div class="class=mb-2">
+                <label asp-for="Address" class="form-label"></label>
+                <input type="text" asp-for="Address" class="form-control" />
+                <span asp-validation-for="Address"></span>
+            </div>
+
+            <div class="class=mb-2">
+                <label asp-for="DrivingLicenseNo" class="form-label"></label>
+                <input type="text" asp-for="DrivingLicenseNo" class="form-control" />
+                <span asp-validation-for="DrivingLicenseNo"></span>
+            </div>
+
+            <div class="mt-2 d-grid">
+                <input type="submit" class="btn btn-primary" value="Add New" />
+            </div>
+        </div>
+    </div>
+</form>
+
