@@ -9,12 +9,13 @@ namespace Infinite.MVCCore.TaxiBooking.Models
     public class EmployeeViewModel
     {
         public int EmployeeId { get; set; }
-        [Required]
+        [Required(ErrorMessage ="Please provide name")]
         [Display(Name ="Employee Name")]
         public string EmployeeName { get; set; }
-        [Required]
+        [Required(ErrorMessage ="Please provide destination")]
         public string Designation { get; set; }
-        [Required]
+        [Required(ErrorMessage ="Please provide Mobile Number")]
+        [Display(Name ="Mobile Number")]
         public string PhoneNo { get; set; }
         [Required]
         [Display(Name ="Email Id")]

@@ -1,0 +1,19 @@
+﻿@model CustomerViewModel
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details of Customer</h1>
+
+<div class="row">
+    <div class="col-md-5">
+        <ul class="list-group">
+            <li class="list-group-item"><b>Customer Id :</b>@Model.CustomerId</li>
+            <li class="list-group-item"><b>Customer Name :</b>@Model.CustomerName</li>
+            <li class="list-group-item"><b>Mobile Number :</b>@Model.PhoneNo</li>
+            <li class="list-group-item"><b>Email Id :</b>@Model.EmailId</li>
+            <li class="list-group-item"><b>Full Address :</b>@Model.Address</li>
+        </ul>
+        <a asp-controller="Customers" asp-action="Index">Back to List</a> 
+    </div>
+</div>
