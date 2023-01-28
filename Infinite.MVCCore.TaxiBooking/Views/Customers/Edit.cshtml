@@ -5,7 +5,7 @@
 
 <h1>Edit Customer</h1>
 
-<form asp-controller="Customer" asp-action="Edit" method="post">
+<form asp-controller="Customers" asp-action="Edit" method="post">
     <div class="row">
         <div class="col-md-4">
             <div asp-validation-summary="All" class="text-danger"></div>
@@ -26,8 +26,8 @@
             </div>
             <div class="mb-2">
                 <label asp-for="Address" class="form-label"></label>
-                <input type="date" asp-for="EmailId" class="form-control" />
-                <span asp-validation-for="EmailId"></span>
+                <input type="text" asp-for="Address" class="form-control" />
+                <span asp-validation-for="Address"></span>
             </div>
             <div class="mt-2" d-grid>
                 <input type="submit" class="btn btn-primary" value="Update Customer" />

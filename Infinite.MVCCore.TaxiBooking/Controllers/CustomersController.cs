@@ -31,7 +31,24 @@ namespace Infinite.MVCCore.TaxiBooking.Controllers
             return View(customers);
         }
 
-        [HttpGet("Customers/Create")]
+        [HttpGet]
+        public async Task<IActionResult> Details(int id)
+        {
+            CustomerViewModel customer = null;
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new System.Uri(_configuration["ApiUrl:api"]);
+                var result = await client.GetAsync($"Customers/GetCustomerById/{id}");
+                if (result.IsSuccessStatusCode)
+                {
+                    customer = await result.Content.ReadAsAsync<CustomerViewModel>();
+                }
+            }
+            return View(customer);
+        }
+
+        [HttpGet]
+        [Route("Customers/Create")]
         public IActionResult Create()
         {
 
@@ -39,14 +56,13 @@ namespace Infinite.MVCCore.TaxiBooking.Controllers
         }
 
         [HttpPost("Customers/Create")]
-        //[Route("Customers/Create")]
         public async Task<IActionResult> Create(CustomerViewModel customer)
         {
             if (ModelState.IsValid)
             {
                 using (var client = new HttpClient())
                 {
-                    client.BaseAddress = new System.Uri(_configuration["ApiUrl:api"]);
+                    client.BaseAddress = new Uri(_configuration["ApiUrl:api"]);
                     var result = await client.PostAsJsonAsync("Customers/CreateCustomer", customer);
                     if (result.StatusCode == System.Net.HttpStatusCode.Created)
                     {
@@ -59,7 +75,6 @@ namespace Infinite.MVCCore.TaxiBooking.Controllers
         }
 
         [HttpGet]
-
         public async Task<IActionResult> Edit(int id)
         {
             if (ModelState.IsValid)
@@ -67,17 +82,17 @@ namespace Infinite.MVCCore.TaxiBooking.Controllers
                 CustomerViewModel customer = null;
                 using (var client = new HttpClient())
                 {
-                    client.BaseAddress = new System.Uri(_configuration["ApiUrl:api"]);
+                    client.BaseAddress = new Uri(_configuration["ApiUrl:api"]);
                     var result = await client.GetAsync($"Customers/GetCustomerById/{id}");
                     if (result.IsSuccessStatusCode)
                     {
                         customer = await result.Content.ReadAsAsync<CustomerViewModel>();
-                        return View();
+                        return View(customer);
                     }
-                    //else
-                    //{
-                    //    //ModelState.AddModelError("", "Customer doesn't exist");
-                    //}
+                    else
+                    {
+                        ModelState.AddModelError("", "Customer doesn't exist");
+                    }
 
                 }
             }
@@ -92,9 +107,9 @@ namespace Infinite.MVCCore.TaxiBooking.Controllers
             {
                 using (var client = new HttpClient())
                 {
-                    client.BaseAddress = new System.Uri(_configuration["ApiUrl:api"]);
+                    client.BaseAddress = new Uri(_configuration["ApiUrl:api"]);
                     var result = await client.PutAsJsonAsync($"Customers/UpdateCustomer/{customer.CustomerId}", customer);
-                    if (result.StatusCode == System.Net.HttpStatusCode.NoContent)
+                    if (result.IsSuccessStatusCode)
                     {
                         return RedirectToAction("Index");
                     }
@@ -134,10 +149,11 @@ namespace Infinite.MVCCore.TaxiBooking.Controllers
         [HttpPost("Customers/Delete/{id}")]
         public async Task<IActionResult> Delete(CustomerViewModel customer)
         {
+            int id = customer.CustomerId;
             using (var client = new HttpClient())
             {
                 client.BaseAddress = new System.Uri(_configuration["ApiUrl:api"]);
-                var result = await client.DeleteAsync($"Customers/DeleteCustomer/{customer.CustomerId}");
+                var result = await client.DeleteAsync($"Customers/DeleteCustomer/{id}");
                 if (result.IsSuccessStatusCode)
                 {
                     return RedirectToAction("Index");
