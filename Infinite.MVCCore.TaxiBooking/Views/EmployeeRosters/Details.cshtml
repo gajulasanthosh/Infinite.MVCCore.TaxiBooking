@@ -1,0 +1,20 @@
+﻿@model EmployeeRosterViewModel
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>List of Details</h1>
+
+<div class="row">
+    <div class="col-md-5">
+        <ul class="list-group">
+            <li class="list-group-item"><b>From Date:</b>@Model.FromDate</li>
+            <li class="list-group-item"><b>To Date:</b>@Model.ToDate</li>
+            <li class="list-group-item"><b>In Time:</b>@Model.InTime</li>
+            <li class="list-group-item"><b>Out Time:</b>@Model.OutTime</li>
+            <li class="list-group-item"><b>Id:</b>@Model.Id</li>
+
+        </ul>
+        <a asp-controller="EmployeeRosters" asp-action="Index" Back To Index></a>
+    </div>
+</div>

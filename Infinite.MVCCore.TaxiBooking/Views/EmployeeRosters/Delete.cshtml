@@ -1,0 +1,30 @@
+﻿@model EmployeeRosterViewModel
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<h1>Delete EmployeeRosters</h1>
+
+<div class="row">
+    <div class="col-md-7">
+        <div asp-validation-summary="All" class="text-danger"></div>
+
+        <ul class="list-group">
+            <li class="list-group-item"><b>From Date</b>@Model.FromDate</li>
+            <li class="list-group-item"><b>To Date</b>@Model.ToDate</li>
+            <li class="list-group-item"><b>In Time</b>@Model.InTime</li>
+            <li class="list-group-item"><b>Out Time</b>@Model.OutTime</li>
+
+        </ul>
+        <div>
+            Are you sure do you want to delete this EmployeeRosters?
+        </div>
+        <div>
+            <form asp-controller="EmployeeRosters" asp-action="Delete" method="post">
+                <button type="submit" class="btn btn-danger">Delete</button>
+                <a asp-controller="EmployeeRosters" asp-action="Index" Back to List></a>
+            </form>
+        </div>
+
+    </div>
+</div>

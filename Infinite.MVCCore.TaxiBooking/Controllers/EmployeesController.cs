@@ -70,29 +70,98 @@ namespace Infinite.MVCCore.TaxiBooking.Controllers
             }
             return View(employee);
         }
-        //[HttpGet]
-        //public async Task<IActionResult>Edit(int id)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        EmployeeViewModel movie = null;
-        //        using (var client = new HttpClient())
-        //        {
-        //            client.BaseAddress = new Uri(_configuration["ApiUrl:api"]);
-        //            var result = await client.GetAsync($"Movies/GetMovieById/{id}");
-        //            if (result.IsSuccessStatusCode)
-        //            {
-        //                movie = await result.Content.ReadAsAsync<MovieViewModel>();
-        //                movie.Genres = await this.GetGenres();
-        //                return View(movie);
-        //            }
-        //            else
-        //            {
-        //                ModelState.AddModelError("", "Movie doesn't exists");
-        //            }
-        //        }
-        //    }
-        //    return View();
-        //}
+        [HttpGet]
+
+        public async Task<IActionResult> Edit(int id)
+        {
+            if (ModelState.IsValid)
+            {
+                EmployeeViewModel employee = null;
+                using (var client = new HttpClient())
+                {
+                    client.BaseAddress = new Uri(_configuration["ApiUrl:api"]);
+                    var result = await client.GetAsync($"Employees/GetEmployeeById/{id}");
+                    if (result.IsSuccessStatusCode)
+                    {
+                        employee = await result.Content.ReadAsAsync<EmployeeViewModel>();
+                        return View(employee);
+                    }
+                    //else
+                    //{
+                    //    //ModelState.AddModelError("", "Customer doesn't exist");
+                    //}
+
+                }
+            }
+            return View();
+        }
+
+        [HttpPost]
+        [Route("Employees/Edit/{EmployeeId}")]
+        public async Task<IActionResult> Edit(EmployeeViewModel employee)
+        {
+            if (ModelState.IsValid)
+            {
+                using (var client = new HttpClient())
+                {
+                    client.BaseAddress = new Uri(_configuration["ApiUrl:api"]);
+                    var result = await client.PutAsJsonAsync($"Employees/UpdateEmployee/{employee.EmployeeId}", employee);
+                    if (result.StatusCode == System.Net.HttpStatusCode.NoContent)
+                    {
+                        return RedirectToAction("Index");
+                    }
+                    //else
+                    //{
+                    //    ModelState.AddModelError("", "Server Error, Please try later");
+                    //}
+
+                }
+            }
+            return View();
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Delete(int id)
+        {
+            EmployeeViewModel employee = null;
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new System.Uri(_configuration["ApiUrl:api"]);
+                var result = await client.GetAsync($"Employees/GetEmployeeById/{id}");
+                if (result.IsSuccessStatusCode)
+                {
+                    employee = await result.Content.ReadAsAsync<EmployeeViewModel>();
+                    return View(employee);
+                }
+                else
+                {
+                    ModelState.AddModelError("", "Server Error.Please try later");
+                }
+            }
+            return View(employee);
+        }
+
+        [HttpPost]
+        [Route("Employees/Delete/{EmployeeId}")]
+        public async Task<IActionResult> Delete(EmployeeViewModel employee)
+        {
+            using (var client = new HttpClient())
+            {
+                //client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", HttpContext.Session.GetString("token"));
+                client.BaseAddress = new System.Uri(_configuration["ApiUrl:api"]);
+                var result = await client.DeleteAsync($"Employees/DeleteEmployee/{employee.EmployeeId}");
+                if (result.IsSuccessStatusCode)
+                {
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    ModelState.AddModelError("", "Server Error.Please try later");
+                }
+            }
+            return View();
+        }
+
+
     }
 }

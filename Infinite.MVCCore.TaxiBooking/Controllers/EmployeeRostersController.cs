@@ -9,90 +9,87 @@ using System.Threading.Tasks;
 
 namespace Infinite.MVCCore.TaxiBooking.Controllers
 {
-    public class CustomersController : Controller
+    public class EmployeeRostersController : Controller
     {
-        public readonly IConfiguration _configuration;
-        public CustomersController(IConfiguration configuration)
+        private readonly IConfiguration _configuration;
+
+        public EmployeeRostersController(IConfiguration configuration)
         {
             _configuration = configuration;
         }
         public async Task<IActionResult> Index()
         {
-            List<CustomerViewModel> customers = new();
+            List<EmployeeRosterViewModel> employeeRosters = new();
             using (var client = new HttpClient())
             {
                 client.BaseAddress = new System.Uri(_configuration["ApiUrl:api"]);
-                var result = await client.GetAsync("Customers/GetAllCustomers");
+                var result = await client.GetAsync("EmployeeRosters/GetAllRosters");
                 if (result.IsSuccessStatusCode)
                 {
-                    customers = await result.Content.ReadAsAsync<List<CustomerViewModel>>();
+                    employeeRosters = await result.Content.ReadAsAsync<List<EmployeeRosterViewModel>>();
                 }
             }
-            return View(customers);
-        }
 
-        [HttpGet]
+            return View(employeeRosters);
+        }
         public async Task<IActionResult> Details(int id)
         {
-            CustomerViewModel customer = null;
+            EmployeeRosterViewModel employeeRoster = null;
             using (var client = new HttpClient())
             {
                 client.BaseAddress = new System.Uri(_configuration["ApiUrl:api"]);
-                var result = await client.GetAsync($"Customers/GetCustomerById/{id}");
+                var result = await client.GetAsync($"EmployeeRosters/GetRosterById/{id}");
                 if (result.IsSuccessStatusCode)
                 {
-                    customer = await result.Content.ReadAsAsync<CustomerViewModel>();
+                    employeeRoster = await result.Content.ReadAsAsync<EmployeeRosterViewModel>();
                 }
             }
-            return View(customer);
+            return View(employeeRoster);
         }
 
         [HttpGet]
-        [Route("Customers/Create")]
         public IActionResult Create()
         {
-
             return View();
         }
-
-        [HttpPost("Customers/Create")]
-        public async Task<IActionResult> Create(CustomerViewModel customer)
+        [HttpPost]
+        public async Task<IActionResult> Create(EmployeeRosterViewModel employee)
         {
             if (ModelState.IsValid)
             {
                 using (var client = new HttpClient())
                 {
                     client.BaseAddress = new Uri(_configuration["ApiUrl:api"]);
-                    var result = await client.PostAsJsonAsync("Customers/CreateCustomer", customer);
+                    var result = await client.PostAsJsonAsync("EmployeeRosters/CreateRoster", employee);
                     if (result.StatusCode == System.Net.HttpStatusCode.Created)
                     {
                         return RedirectToAction("Index");
                     }
                 }
             }
-
-            return View();
+            return View(employee);
         }
 
         [HttpGet]
+
         public async Task<IActionResult> Edit(int id)
         {
             if (ModelState.IsValid)
             {
-                CustomerViewModel customer = null;
+                EmployeeRosterViewModel employee = null;
                 using (var client = new HttpClient())
                 {
                     client.BaseAddress = new Uri(_configuration["ApiUrl:api"]);
-                    var result = await client.GetAsync($"Customers/GetCustomerById/{id}");
+                    var result = await client.GetAsync($"EmployeeRosters/GetRosterById/{id}");
                     if (result.IsSuccessStatusCode)
                     {
-                        customer = await result.Content.ReadAsAsync<CustomerViewModel>();
-                        return View(customer);
+                        employee = await result.Content.ReadAsAsync<EmployeeRosterViewModel>();
+                        return View(employee);
                     }
-                    else
-                    {
-                        ModelState.AddModelError("", "Customer doesn't exist");
-                    }
+                    //else
+                    //{
+                    //    //ModelState.AddModelError("", "Customer doesn't exist");
+                    //}
 
                 }
             }
@@ -100,72 +97,68 @@ namespace Infinite.MVCCore.TaxiBooking.Controllers
         }
 
         [HttpPost]
-        [Route("Customers/Edit/{CustomerId}")]
-        public async Task<IActionResult> Edit(CustomerViewModel customer)
+        [Route("EmployeeRosters/Edit/{Id}")]
+        public async Task<IActionResult> Edit(EmployeeRosterViewModel employee)
         {
             if (ModelState.IsValid)
             {
                 using (var client = new HttpClient())
                 {
                     client.BaseAddress = new Uri(_configuration["ApiUrl:api"]);
-                    var result = await client.PutAsJsonAsync($"Customers/UpdateCustomer/{customer.CustomerId}", customer);
-                    if (result.IsSuccessStatusCode)
+                    var result = await client.PutAsJsonAsync($"EmployeeRosters/UpdateRoster/{employee.Id}", employee);
+                    if (result.StatusCode == System.Net.HttpStatusCode.NoContent)
                     {
                         return RedirectToAction("Index");
                     }
-                    else
-                    {
-                        ModelState.AddModelError("", "Server Error, Please try later");
-                    }
+                    //else
+                    //{
+                    //    ModelState.AddModelError("", "Server Error, Please try later");
+                    //}
 
                 }
             }
             return View();
         }
-
         [HttpGet]
         public async Task<IActionResult> Delete(int id)
         {
-            CustomerViewModel customer = null;
+            EmployeeRosterViewModel employee = null;
             using (var client = new HttpClient())
             {
                 client.BaseAddress = new System.Uri(_configuration["ApiUrl:api"]);
-                var result = await client.GetAsync($"Customers/GetCustomerById/{id}");
+                var result = await client.GetAsync($"EmployeeRosters/GetRosterById/{id}");
                 if (result.IsSuccessStatusCode)
                 {
-                    customer = await result.Content.ReadAsAsync<CustomerViewModel>();
-                    return View(customer);
+                    employee = await result.Content.ReadAsAsync<EmployeeRosterViewModel>();
+                    return View(employee);
                 }
-                else
-                {
-                    ModelState.AddModelError("", "Server Error.Please try later");
-                }
+                //else
+                //{
+                //    ModelState.AddModelError("", "Server Error.Please try later");
+                ////}
             }
-            return View(customer);
+            return View(employee);
         }
 
-
-
-        [HttpPost("Customers/Delete/{CustomerId}")]
-        public async Task<IActionResult> Delete(CustomerViewModel customer)
+        [HttpPost]
+        [Route("EmployeeRosters/Delete/{Id}")]
+        public async Task<IActionResult> Delete(EmployeeRosterViewModel employee)
         {
-            
             using (var client = new HttpClient())
             {
+                //client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", HttpContext.Session.GetString("token"));
                 client.BaseAddress = new System.Uri(_configuration["ApiUrl:api"]);
-                var result = await client.DeleteAsync($"Customers/DeleteCustomer/{customer.CustomerId}");
+                var result = await client.DeleteAsync($"EmployeeRosters/DeleteRoster/{employee.Id}");
                 if (result.IsSuccessStatusCode)
                 {
                     return RedirectToAction("Index");
-
                 }
-                else
-                {
-                    ModelState.AddModelError("", "Server Error.Please try later");
-                }
+                //else
+                //{
+                //    return RedirectToAction("Login", "Accounts");
+                //}
             }
-            return View();
-
+            return View(employee);
         }
     }
 }
