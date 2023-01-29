@@ -86,10 +86,10 @@ namespace Infinite.MVCCore.TaxiBooking.Controllers
                         employee = await result.Content.ReadAsAsync<EmployeeRosterViewModel>();
                         return View(employee);
                     }
-                    //else
-                    //{
-                    //    //ModelState.AddModelError("", "Customer doesn't exist");
-                    //}
+                    else
+                    {
+                        ModelState.AddModelError("", "Customer doesn't exist");
+                    }
 
                 }
             }
@@ -110,10 +110,10 @@ namespace Infinite.MVCCore.TaxiBooking.Controllers
                     {
                         return RedirectToAction("Index");
                     }
-                    //else
-                    //{
-                    //    ModelState.AddModelError("", "Server Error, Please try later");
-                    //}
+                    else
+                    {
+                        ModelState.AddModelError("", "Server Error, Please try later");
+                    }
 
                 }
             }
@@ -132,12 +132,12 @@ namespace Infinite.MVCCore.TaxiBooking.Controllers
                     employee = await result.Content.ReadAsAsync<EmployeeRosterViewModel>();
                     return View(employee);
                 }
-                //else
-                //{
-                //    ModelState.AddModelError("", "Server Error.Please try later");
-                ////}
-            }
-            return View(employee);
+                else
+                {
+                    ModelState.AddModelError("", "Server Error.Please try later");
+                    }
+                }
+                return View(employee);
         }
 
         [HttpPost]
@@ -153,10 +153,10 @@ namespace Infinite.MVCCore.TaxiBooking.Controllers
                 {
                     return RedirectToAction("Index");
                 }
-                //else
-                //{
-                //    return RedirectToAction("Login", "Accounts");
-                //}
+                else
+                {
+                    ModelState.AddModelError("", "Server Error.Please try later");
+                }
             }
             return View(employee);
         }
