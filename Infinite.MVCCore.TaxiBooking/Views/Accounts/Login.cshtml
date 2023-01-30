@@ -4,7 +4,7 @@
     ViewData["Title"] = "Login";
 }
 
-
+<body class="image">
 <form asp-controller="Accounts" asp-action="Login" method="post">
     <div class="row">
         <div class="col-md-4">
@@ -20,15 +20,30 @@
                 <span asp-validation-for="Password"></span>
             </div>
             @*<div class="mb-2">
-                <label asp-for="Role" class="form-label"></label>
-                <select asp-for="Role" asp-items="@(new SelectList(Model.Role,"Id","RoleName"))" class="form-select">
-                    <option value="">---Select---</option>
-                </select>
-                <span asp-validation-for="Role"></span>
-            </div>*@
+                    <label asp-for="Role" class="form-label"></label>
+                    <select asp-for="Role" asp-items="@(new SelectList(Model.Role,"Id","RoleName"))" class="form-select">
+                        <option value="">---Select---</option>
+                    </select>
+                    <span asp-validation-for="Role"></span>
+                </div>*@
             <div class="mt-3 d-grid">
                 <input type="submit" class="btn btn-primary" value="Sign In" />
             </div>
         </div>
     </div>
 </form>
+</body>
+
+
+
+<style>
+    .image {
+        background-image: url("https://th.bing.com/th/id/R.1fd8cdf9cbcbf0153a54d285eb88d4cf?rik=7SEb69DaUm6uQg&riu=http%3a%2f%2fwww.mytokri.com%2fblog%2fwp-content%2fuploads%2f2016%2f03%2fhomebg.jpg&ehk=KPPbb3jGZlsCdHtbgMw1sqAZoOHKl5OJXIfB%2fd98ZSk%3d&risl=&pid=ImgRaw&r=0");
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+
+    .row {
+        margin-top: 15%;
+    }
+</style>

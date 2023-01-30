@@ -1,0 +1,45 @@
+﻿@model RolesRegisterVM
+@{
+    ViewData["Title"] = "Register";
+}
+
+<h1>Register</h1>
+
+<form asp-controller="Accounts" asp-action="Register" method="post" class="form-group">
+    <div class="row">
+        <div class="col-md-3">
+
+            <label asp-for="@Model.RegisterRoles.LoginID" class="form-label "></label>
+            <input type="text" asp-for="@Model.RegisterRoles.LoginID" class="form-control" placeholder="Enter the UserName" />
+            <span asp-validation-for="@Model.RegisterRoles.LoginID" class="text-danger"></span>
+        </div>
+        <div class="row">
+            <div class="col-md-3">
+                <label asp-for="@Model.RegisterRoles.Password" class="form-label"></label>
+                <input type="text" asp-for="@Model.RegisterRoles.Password" class="form-control" placeholder="Enter your Full Name" />
+                <span asp-validation-for="@Model.RegisterRoles.Password" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3">
+                <label asp-for="@Model.RegisterRoles.ConfirmPassword" class="form-label"></label>
+                <input type="text" asp-for="@Model.RegisterRoles.ConfirmPassword" class="form-control" placeholder="Enter your Email" />
+                <span asp-validation-for="@Model.RegisterRoles.ConfirmPassword" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3">
+                <label asp-for="SelectedValue" class="form-group">Select Role</label>
+                <select name="selectedValue" asp-for="SelectedValue" asp-items="Model.Values" class="form-select"></select>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3 mt-2">
+            <button type="submit" class="btn btn-success" style="width: 100%;">
+                Register
+            </button>
+        </div>
+    </div>
+</form>
+
