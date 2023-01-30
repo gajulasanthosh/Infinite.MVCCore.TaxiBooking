@@ -13,7 +13,7 @@ namespace Infinite.MVCCore.TaxiBooking.Models
         [Display(Name ="Employee Name")]
         public string EmployeeName { get; set; }
         [Required(ErrorMessage ="Please provide destination")]
-        public string Designation { get; set; }
+        public int DesignationId { get; set; }
         [Required(ErrorMessage ="Please provide Mobile Number")]
         [Display(Name ="Mobile Number")]
         public string PhoneNo { get; set; }
@@ -25,5 +25,7 @@ namespace Infinite.MVCCore.TaxiBooking.Models
         [Required]
         [Display(Name ="Driving License Number")]
         public string DrivingLicenseNo { get; set; }
+        public List<DesignationViewModel> Designations { get; set; }
+        public string DesignationName { get; set; }
     }
 }

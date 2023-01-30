@@ -1,0 +1,74 @@
+﻿@model BookingViewModel
+@{
+    ViewData["Title"] = "Create";
+}
+ <h1>Create a Booking</h1> 
+
+<form asp-controller="Bookings" asp-action="Create" method="post">
+    <div class="row">
+        <div class="col-md-5">
+            <div class="mb-2">
+        <label asp-for="CustomerID" class="form-label"></label>
+        <input type="text" asp-for="CustomerID" class="form-control" />
+        <span asp-validation-for="CustomerID"></span>        
+        </div>
+            @*  <div class="mb-2"><label asp-for="CustomerName" class="form-label"></label>
+        <input type="text" asp-for="CustomerName" class="form-control" />
+        <span asp-validation-for="CustomerName"></span>
+        </div>*@
+              <div class="mb-2"><label asp-for="TaxiId" class="form-label"></label>
+        <input type="text" asp-for="TaxiId" class="form-control" />
+        <span asp-validation-for="TaxiId"></span>
+        </div>
+            <div class="mb-2">
+                <label asp-for="BookingDate" class="form-label"></label>
+                <input type="date" asp-for="BookingDate" class="form-control" />
+                <span asp-validation-for="BookingDate"></span>
+            </div>
+
+                    <div class="mb-2">
+                        <label asp-for="TaxiModels" class="form-label"></label>
+                        <select asp-for="TaxiModels" asp-items="@(new SelectList(Model.TaxiModels,"Id","TaxiModelName"))" class="form-select">
+                            <option value="">---Select---</option>
+                        </select>
+                        <span asp-validation-for="TaxiModels"></span>
+                    </div>
+                   <div class="mb-2">
+                        <label asp-for="TaxiTypes" class="form-label"></label>
+                        <select asp-for="TaxiTypes" asp-items="@(new SelectList(Model.TaxiTypes,"Id","TaxiTypeName"))" class="form-select">
+                            <option value="">---Select---</option>
+                        </select>
+                        <span asp-validation-for="TaxiTypes"></span>
+                    </div>
+ 
+                    <div class="mb-2">
+                        <label asp-for="TripDate" class="form-label"></label>
+                        <input type="date" asp-for="TripDate" class="form-control" />
+                        <span asp-validation-for="TripDate"></span>
+                    </div>
+                    <div class="mb-2">
+                        <label asp-for="StartTime" class="form-label"></label>
+                        <input type="time" asp-for="StartTime" class="form-control" />
+                        <span asp-validation-for="StartTime"></span>
+                    </div>
+                    <div class="mb-2">
+                        <label asp-for="EndTime" class="form-label"></label>
+                        <input type="time" asp-for="EndTime" class="form-control" />
+                        <span asp-validation-for="EndTime"></span>
+                    </div>
+                    <div class="mb-2">
+                        <label asp-for="SourceAddress" class="form-label"></label>
+                        <input type="text" asp-for="SourceAddress" class="form-control" />
+                        <span asp-validation-for="SourceAddress"></span>
+                    </div>
+                    <div class="mb-2">
+                        <label asp-for="DestinationAddress" class="form-label"></label>
+                        <input type="text" asp-for="DestinationAddress" class="form-control" />
+                        <span asp-validation-for="DestinationAddress"></span>
+                    </div>
+                    <div class="mt-2">
+                        <input type="submit" class="btn btn-primary" value="Add New" />
+                    </div>
+            </div>
+        </div>
+</form>

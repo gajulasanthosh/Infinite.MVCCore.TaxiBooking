@@ -9,6 +9,8 @@ namespace Infinite.MVCCore.TaxiBooking.Models
     {
         public int BookingId { get; set; }
         public int CustomerID { get; set; }
+        public List<TaxiModelViewModel> TaxiModels { get; set; }
+        public List<TaxiTypeViewModel> TaxiTypes { get; set; }
         public DateTime BookingDate { get; set; }
         public DateTime TripDate { get; set; }
         public DateTime StartTime { get; set; }

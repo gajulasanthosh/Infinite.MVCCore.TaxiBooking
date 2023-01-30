@@ -49,9 +49,13 @@ namespace Infinite.MVCCore.TaxiBooking.Controllers
         }
 
         [HttpGet]
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
-            return View();
+            EmployeeViewModel viewModel = new EmployeeViewModel
+            {
+                Designations = await this.GetDesignations()
+            };
+            return View(viewModel);
         }
         [HttpPost]
         public async Task<IActionResult> Create(EmployeeViewModel employee)
@@ -68,7 +72,12 @@ namespace Infinite.MVCCore.TaxiBooking.Controllers
                     }
                 }
             }
-            return View(employee);
+            EmployeeViewModel viewModel = new EmployeeViewModel
+            {
+                Designations = await this.GetDesignations()
+            };
+            return View(viewModel);
+          
         }
         [HttpGet]
 
@@ -160,6 +169,22 @@ namespace Infinite.MVCCore.TaxiBooking.Controllers
                 }
             }
             return View();
+        }
+      [NonAction]
+      public async Task<List<DesignationViewModel>> GetDesignations()
+        {
+            List<DesignationViewModel> designations = new();
+            using(var client = new HttpClient())
+            {
+                client.BaseAddress = new System.Uri(_configuration["ApiUrl:api"]);
+                var result = await client.GetAsync("Employees/GetDesignations");
+                if (result.IsSuccessStatusCode)
+                {
+                    designations = await result.Content.ReadAsAsync<List<DesignationViewModel>>();
+                }
+
+            }
+            return designations;
         }
 
 

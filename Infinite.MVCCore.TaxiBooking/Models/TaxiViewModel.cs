@@ -12,5 +12,6 @@ namespace Infinite.MVCCore.TaxiBooking.Models
         public string Color { get; set; }
         public string RegistrationNumber { get; set; }
         public string TaxiType { get; set; }
+        
     }
 }

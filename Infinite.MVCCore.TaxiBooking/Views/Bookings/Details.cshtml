@@ -1,0 +1,21 @@
+﻿@model BookingViewModel
+@{
+    ViewData["Title"] = "Details";
+} <h1>Booking Details</h1>
+
+<div class="row">
+    <div class="col-md-5">
+    <ul class="list-group">
+        <li class="list-group-item"><b>Customer ID :</b>@Model.CustomerID </li>
+        <li class="list-group-item"><b>Taxi Id:</b>@Model.TaxiId</li>
+        <li class="list-group-item"><b>Customer Name:</b>@Model.CustomerName</li>
+        <li class="list-group-item"><b> Booking Date:</b>@Model.BookingDate.ToShortDateString()</li>
+        <li class="list-group-item"><b>Trip Date:</b>@Model.TripDate.ToShortDateString()</li>
+        <li class="list-group-item"><b>Start Time:</b>@Model.StartTime</li>
+        <li class="list-group-item"><b>End Time:</b>@Model.EndTime</li>
+        <li class="list-group-item"><b>Source Address:</b>@Model.SourceAddress</li>
+        <li class="list-group-item"><b>Destination Address:</b>@Model.DestinationAddress</li> 
+        </ul>
+    <a asp-controller="Bookings" asp-action="Index"> Back To Index</a>
+        </div>
+</div>
