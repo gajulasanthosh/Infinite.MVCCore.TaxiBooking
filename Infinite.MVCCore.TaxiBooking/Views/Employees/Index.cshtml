@@ -5,16 +5,19 @@
 }
 <style>
     .image {
-        background-image: url('https://www.bing.com/th/id/OGC.f3a5a976246be154e795a444458b2b98?pid=1.7&rurl=https%3a%2f%2fcdn.dribbble.com%2fusers%2f521025%2fscreenshots%2f3195508%2ftaxi-dribble.gif&ehk=vJi%2bKXap6I07M2DklCOW03PUFAX5liVAZ7wtX1tZ38A%3d');
+        background-image: url('https://images.unsplash.com/photo-1556339979-d7548eaf2401?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80');
         background-repeat: no-repeat;
         background-size: cover;
+    }
+    .table{
+        background-color:black;
     }
 </style>
 
 <body class="image">
 
 
-    <div class="row">
+    <div class="row offset-2 pt-5">
         @*<div class="col-md-9">*@
         <div class="row">
             <div class="col">
@@ -26,15 +29,14 @@
 
         </div>
 
-        <div class="col-md-8">
-            <table class="table table-hover">
+        <div class="col-md-9">
+            <table class="table table-hover ">
                 <thead>
                     <tr>
                         <th>Employee Id</th>
                         <th>Employee Name</th>
-                        @*<th>Designation</th>*@
+                       
                         <th>Action</th>
-
                     </tr>
                 </thead>
                 <tbody>
@@ -43,7 +45,7 @@
                         <tr>
                             <td>@x.EmployeeId</td>
                             <td>@x.EmployeeName</td>
-                            <td>@x.DesignationId</td>
+                            
                             <td>
                                 <a asp-controller="Employees" asp-action="Details" asp-route-id="@x.EmployeeId" class="btn btn-primary">Details</a>
                                 <a asp-controller="Employees" asp-action="Edit" asp-route-id="@x.EmployeeId" class="btn btn-primary">Edit</a>

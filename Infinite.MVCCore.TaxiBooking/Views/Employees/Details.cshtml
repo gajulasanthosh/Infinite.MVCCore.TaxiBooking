@@ -2,20 +2,29 @@
 @{
     ViewData["Title"] = "Details";
 }
+<style>
+    .Details{
 
-<h1> List Of Details</h1>
-<div class="row">
-    <div class="col-md-5">
-        <ul class="list-group">
-            <li class="list-group-item"><b>Employee Name:</b>@Model.EmployeeName</li>
-            @*<li class="list-group-item"><b>Designation Id:</b>@Model.DesignationId</li>*@
-            <li class="list-group-item"><b>Designation Name:</b>@Model.DesignationName</li>
-            <li class="list-group-item"><b>Phone Number:</b>@Model.PhoneNo</li>
-            <li class="list-group-item"><b>Email Id:</b>@Model.EmailId</li>
-            <li class="list-group-item"><b>Address:</b>@Model.Address</li>
-            <li class="list-group-item"><b>DrivingLicenseNo:</b>@Model.DrivingLicenseNo</li>
-        </ul>
-        <a asp-controller="Employees" asp-action="Index" class="btn btn-info"> Back To Index</a>
+    }
+</style>
+<body class="Details">
+   
+
+    <div class="row offset-4">
+        
+        <div class="col-md-7">
+            <h1 class=" p-5"> List Of Details</h1>
+            <ul class="list-group">
+                <li class="list-group-item"><b>Employee Name:</b>@Model.EmployeeName</li>
+                @*<li class="list-group-item"><b>Designation Id:</b>@Model.DesignationId</li>*@
+                <li class="list-group-item"><b>Designation Name:</b>@Model.DesignationName</li>
+                <li class="list-group-item"><b>Phone Number:</b>@Model.PhoneNo</li>
+                <li class="list-group-item"><b>Email Id:</b>@Model.EmailId</li>
+                <li class="list-group-item"><b>Address:</b>@Model.Address</li>
+                <li class="list-group-item"><b>DrivingLicenseNo:</b>@Model.DrivingLicenseNo</li>
+            </ul>
+            <br />
+            <a asp-controller="Employees" asp-action="Index" class="btn btn-info"> Back To Index</a>
+        </div>
     </div>
-</div>
-
+</body>

@@ -1,32 +1,31 @@
 ﻿
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Landing";
 }
+
 <style>
    
     .bd {
         border-radius: 10px;
-       
         width: 300px;
-        height: 250px;   
+        height: 250px;
     }
-    .btn {
-        margin-left:25px;
-        padding-left:10px;
-        width: 250px;
+    .btn{
+        margin-left:15px;
+        width:270px;
     }
 </style>
 <body class="body">
-    <h1 class="text-white pt-4">Index</h1>
-    <div class="row  pt-5">
+    <h1 class="text-white offset-5 pt-4">Landing</h1>
+    <div class="row offset-2 pt-5 ">
 
         <div class=" col border-dark ">
             <div class="col">
-                <img src="https://tse4.mm.bing.net/th/id/OIP.rC4ywFmsTivtRXamIk5rJQHaF2?pid=ImgDet&rs=1" class="bd w-90 " />
+                <img src="https://tse4.mm.bing.net/th/id/OIP.rC4ywFmsTivtRXamIk5rJQHaF2?pid=ImgDet&rs=1"class="bd w-90 " />
             </div>
             <br />
-            <div class="col">
-                <a asp-controller="Admin" asp-action="Customers" class="btn btn-danger">Customer Details</a>
+            <div class=" col">
+                <a asp-controller="Bookings" asp-action="index" class="btn btn-danger">Booking Details</a>
             </div>
         </div>
 
@@ -35,12 +34,12 @@
                 <img src="~/Images/Employees(Admin).jpg" class="bd w-90" />
             </div>
             <br />
-            <div class="col">
-                <a asp-controller="Admin" asp-action="Employees" class="btn btn-danger " >Employee Details</a>
+            <div class=" col">
+                <a asp-controller="Admin" asp-action="EmployeeRoster" class="btn btn-danger ">Employee Roster Details</a>
 
             </div>
         </div>
-        <div class=" col border-dark ">
+        @*<div class=" col border-dark ">
             <div class="col">
                 <img src="~/Images/Employees(Admin).jpg" class="bd w-90 " />
             </div>
@@ -49,9 +48,8 @@
                 <a asp-controller="Admin" asp-action="EmployeeRoster" class="btn btn-danger">EmployeeRoster Details</a>
 
             </div>
-        </div>
+        </div>*@
 
-      
+
     </div>
 </body>
-

@@ -4,47 +4,55 @@
 }
 
 <h1>Index</h1>
+<style>
+    .body {
+        background-image: url("");
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+</style>
+<body class="body">
+    <div class="row offset-2 pt-4">
+        <div class="col-md-9">
+           
 
-<div class="row offset-2 pt-4">
-    <div class="col-md-9">
-        <a asp-controller="Customers" asp-action="Create" class="btn btn-info">Create</a>
-   
-        <table class="table table-hover border-2" >
-            <thead>
-                <tr>
+            <table class="table table-hover border-2">
+                <thead>
+                    <tr>
 
-                    <th scope="col">Customer Id</th>
-                    <th scope="col">  </th>
-                    <th scope="col">  </th>
-                    <th scope="col">Custmer Name</th>
-                    <th scope="col">  </th>
-                    <th scope="col">  </th>
-                    <th scope="col" class="offset-2">Action</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var item in Model)
-                {
+                        <th scope="col">Customer Id</th>
+                        <th scope="col">  </th>
+                        <th scope="col">  </th>
+                        <th scope="col">Custmer Name</th>
+                        <th scope="col">  </th>
+                        <th scope="col">  </th>
+                        <th scope="col" class="offset-2">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
 
 
-                <tr class="table-dark">
+                        <tr class="table-dark">
 
-                    <td>@item.CustomerId</td>
-                    <td> </td>
-                    <td></td>
-                    <td>@item.CustomerName</td>
-                    <td> </td>
-                    <td></td>
-                    <td class="pl-3">
-                        <a asp-controller="Customers" asp-action="Details" asp-route-id="@item.CustomerId" class="btn btn-light">Details</a>
-                        <a asp-controller="Customers" asp-action="Edit" asp-route-id="@item.CustomerId" class="btn btn-primary">Edit</a>
-                        <a asp-controller="Customers" asp-action="Delete" asp-route-id="@item.CustomerId" class="btn btn-danger">Delete</a>
-                    </td>
-                </tr>
-             
-                }
-            </tbody>
-        </table>
+                            <td>@item.CustomerId</td>
+                            <td> </td>
+                            <td></td>
+                            <td>@item.CustomerName</td>
+                            <td> </td>
+                            <td></td>
+                            <td class="pl-3">
+                                <a asp-controller="Customers" asp-action="Details" asp-route-id="@item.CustomerId" class="btn btn-light">Details</a>
+                                <a asp-controller="Customers" asp-action="Edit" asp-route-id="@item.CustomerId" class="btn btn-primary">Edit</a>
+                                <a asp-controller="Customers" asp-action="Delete" asp-route-id="@item.CustomerId" class="btn btn-danger">Delete</a>
+                            </td>
+                        </tr>
+
+                    }
+                </tbody>
+            </table>
+        </div>
     </div>
-</div>
+</body>
 

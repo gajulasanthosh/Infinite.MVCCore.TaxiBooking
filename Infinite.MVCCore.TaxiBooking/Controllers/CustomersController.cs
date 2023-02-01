@@ -17,6 +17,11 @@ namespace Infinite.MVCCore.TaxiBooking.Controllers
         {
             _configuration = configuration;
         }
+        public IActionResult Landing()
+        {
+            return View();
+        }
+
         public async Task<IActionResult> Index()
         {
             List<CustomerViewModel> customers = new();
