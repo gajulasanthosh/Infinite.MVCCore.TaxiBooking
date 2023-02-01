@@ -12,10 +12,6 @@
         <input type="text" asp-for="CustomerID" class="form-control" />
         <span asp-validation-for="CustomerID"></span>        
         </div>
-            @*  <div class="mb-2"><label asp-for="CustomerName" class="form-label"></label>
-        <input type="text" asp-for="CustomerName" class="form-control" />
-        <span asp-validation-for="CustomerName"></span>
-        </div>*@
               <div class="mb-2"><label asp-for="TaxiId" class="form-label"></label>
         <input type="text" asp-for="TaxiId" class="form-control" />
         <span asp-validation-for="TaxiId"></span>
@@ -26,7 +22,7 @@
                 <span asp-validation-for="BookingDate"></span>
             </div>
 
-                    <div class="mb-2">
+                    @*<div class="mb-2">
                         <label asp-for="TaxiModels" class="form-label"></label>
                         <select asp-for="TaxiModels" asp-items="@(new SelectList(Model.TaxiModels,"Id","TaxiModelName"))" class="form-select">
                             <option value="">---Select---</option>
@@ -39,7 +35,7 @@
                             <option value="">---Select---</option>
                         </select>
                         <span asp-validation-for="TaxiTypes"></span>
-                    </div>
+                    </div>*@
  
                     <div class="mb-2">
                         <label asp-for="TripDate" class="form-label"></label>

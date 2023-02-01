@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace Infinite.MVCCore.TaxiBooking.Controllers
@@ -14,6 +15,7 @@ namespace Infinite.MVCCore.TaxiBooking.Controllers
     public class AccountsController : Controller
     {
         private readonly IConfiguration _configuration;
+        public string login2 = null;
         public AccountsController(IConfiguration configuration)
         {
             _configuration = configuration;
@@ -34,18 +36,63 @@ namespace Infinite.MVCCore.TaxiBooking.Controllers
                     client.DefaultRequestHeaders.Clear();
                     client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
                     client.BaseAddress = new System.Uri(_configuration["ApiUrl:api"]);
+                    
                     var result = await client.PostAsJsonAsync("Accounts/Login", login);
                     if (result.IsSuccessStatusCode)
                     {
+                        
                         string token = await result.Content.ReadAsAsync<string>();
                         HttpContext.Session.SetString("token", token);
-                        return RedirectToAction("Index", "Customers");
+
+                        //var check = User.FindFirstValue(ClaimTypes.Name);
+                        
+                        string role = await ExtractRole();
+                        if (role == "Customer")
+                        {
+                            
+                            return RedirectToAction("Create", "Bookings");
+                        }
+                        else if (role == "Admin")
+                        {
+                            return RedirectToAction("Index", "Admin");
+                        }
+                        else if (role=="Employee")
+                        {
+                            return RedirectToAction("Index", "Employees");
+                        }
+                        else
+                        {
+                            return RedirectToAction("Index", "Home");
+                        }
 
                     }
                     ModelState.AddModelError("", "Invalid LoginID or Password");
                 }
             }
             return View(login);
+        }
+
+        [NonAction]
+        public async Task<string> ExtractRole()
+        {
+            using (var client = new HttpClient())
+            {
+                client.DefaultRequestHeaders.Clear();
+                client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
+                client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", HttpContext.Session.GetString("token"));
+                client.BaseAddress = new System.Uri(_configuration["ApiUrl:api"]);
+                //  var result = await client.GetAsync("Accounts/GetName");                
+                var roleResult = await client.GetAsync("Accounts/GetRole");
+                if (roleResult.IsSuccessStatusCode)
+                {
+                    // var name = await result.Content.ReadAsAsync<string>();
+                    // ViewBag.Name = name;                    
+                    var role = await roleResult.Content.ReadAsAsync<string>();
+                    // ViewBag.Role = role; 
+                    return role;
+                }
+                return null;
+            }
         }
 
         [HttpPost]
@@ -89,6 +136,17 @@ namespace Infinite.MVCCore.TaxiBooking.Controllers
                     var result = await client.PostAsJsonAsync("Accounts/Register", user);
                     if (result.IsSuccessStatusCode)
                     {
+
+                        //if (model.SelectedValue=="Customer")
+                        //{
+                        //    return RedirectToAction("Create", "Customers");
+                        //}
+                        //else if (model.SelectedValue=="Employee")
+                        //{
+                        //    return RedirectToAction("Create", "Employees");
+                        //}
+                        
+
                         return RedirectToAction("Login");
                     }
                 }
@@ -110,6 +168,8 @@ namespace Infinite.MVCCore.TaxiBooking.Controllers
             };
             return View(model1);
         }
+
+        
 
     }
 

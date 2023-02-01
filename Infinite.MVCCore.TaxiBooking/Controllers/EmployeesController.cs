@@ -1,4 +1,5 @@
 ﻿using Infinite.MVCCore.TaxiBooking.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using System;
@@ -64,6 +65,7 @@ namespace Infinite.MVCCore.TaxiBooking.Controllers
             {
                 using(var client = new HttpClient())
                 {
+                    client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", HttpContext.Session.GetString("token"));
                     client.BaseAddress = new Uri(_configuration["ApiUrl:api"]);
                     var result = await client.PostAsJsonAsync("Employees/CreateEmployee", employee);
                     if (result.StatusCode == System.Net.HttpStatusCode.Created)
@@ -187,6 +189,8 @@ namespace Infinite.MVCCore.TaxiBooking.Controllers
             return designations;
         }
 
+        
+       
 
     }
 }

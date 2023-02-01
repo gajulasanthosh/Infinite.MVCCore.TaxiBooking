@@ -69,6 +69,7 @@ namespace Infinite.MVCCore.TaxiBooking.Controllers
                 using (var client = new HttpClient())
                 {
                     client.BaseAddress = new Uri(_configuration["ApiUrl:api"]);
+                    
                     var result = await client.PostAsJsonAsync("Bookings/CreateBooking", booking);
                     if (result.StatusCode == System.Net.HttpStatusCode.Created)
                     {
@@ -114,6 +115,34 @@ namespace Infinite.MVCCore.TaxiBooking.Controllers
                 }
             }
             return types;
+        }
+
+
+        public async Task<IActionResult> ApproveBooking(int id)
+        {
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new System.Uri(_configuration["ApiUrl:api"]); var res = await client.PutAsync($"Employees/ApproveBooking/{id}", null);
+                if (res.IsSuccessStatusCode)
+                {
+                    return RedirectToAction("Index", "Bookings");
+                }
+                return BadRequest();
+            }
+        }
+
+        [HttpPost("Bookings/RejectBooking/{BookingId}")]
+        public async Task<IActionResult> RejectBooking(int id)
+        {
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new System.Uri(_configuration["ApiUrl:api"]); var res = await client.PutAsync($"Employees/RejectBookings/{id}", null);
+                if (res.IsSuccessStatusCode)
+                {
+                    return RedirectToAction("Index", "Bookings");
+                }
+                return BadRequest();
+            }
         }
     }
 }

@@ -19,5 +19,7 @@ namespace Infinite.MVCCore.TaxiBooking.Models
         public string DestinationAddress { get; set; }
         public int TaxiId { get; set; }
         public string CustomerName { get; set; }
+
+        public string Status { get; set; }
     }
 }
